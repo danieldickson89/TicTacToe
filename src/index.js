@@ -21,24 +21,19 @@ class Board extends React.Component {
     }
 
     render() {
+        let boardSquares = [];
+        for (let row = 0; row < 3; row++) {
+            let boardRow = [];
+            for (let col = 0; col < 3; col++) {
+                boardRow.push(<span key={(row * 3) + col}>{this.renderSquare((row * 3) + col)}</span>);
+            }
+            boardSquares.push(<div className="board-row" key={row}>{boardRow}</div>);
+        }
+
         return (
-        <div>
-            <div className="board-row">
-            {this.renderSquare(0)}
-            {this.renderSquare(1)}
-            {this.renderSquare(2)}
+            <div>
+                {boardSquares}
             </div>
-            <div className="board-row">
-            {this.renderSquare(3)}
-            {this.renderSquare(4)}
-            {this.renderSquare(5)}
-            </div>
-            <div className="board-row">
-            {this.renderSquare(6)}
-            {this.renderSquare(7)}
-            {this.renderSquare(8)}
-            </div>
-        </div>
         );
     }
 }
@@ -48,7 +43,8 @@ class Game extends React.Component {
         super(props);
         this.state = {
             history: [{
-                squares: Array(9).fill(null)
+                squares: Array(9).fill(null),
+                location: [0,0]
             }],
             stepNumber: 0,
             xIsNext: true,
@@ -66,6 +62,7 @@ class Game extends React.Component {
         this.setState({
             history: history.concat([{
                 squares: squares,
+                location:[Math.floor((i % 3) + 1), Math.floor((i / 3) + 1)]
             }]),
             stepNumber: history.length,
             xIsNext: !this.state.xIsNext,
@@ -85,12 +82,19 @@ class Game extends React.Component {
         const winner = calculateWinner(current.squares);
 
         const moves = history.map((step, move) => {
+            const location = step.location;
             const desc = move ?
-              'Go to move #' + move :
-              'Go to game start';
+              `Move # ${move} - (${location[0]},${location[1]})`:
+              `Game start`;
+
             return (
-                <li key={move}>
-                    <button onClick={() => this.jumpTo(move)}>{desc}</button>
+                <li key={move} className="move-desc">
+                    <button 
+                      className={"move-button " + (move === this.state.stepNumber ? 'selected-step' : '')} 
+                      onClick={() => this.jumpTo(move)}
+                    >
+                        {desc}
+                    </button>
                 </li>
             );
         });

@@ -19,9 +19,9 @@ body {
   
   .square {
     background: #fff;
-    border: 1px solid #999;
+    border: 1.5px solid #999;
     float: left;
-    font-size: 24px;
+    font-size: 32px;
     font-weight: bold;
     line-height: 34px;
     height: 34px;
@@ -30,10 +30,19 @@ body {
     padding: 0;
     text-align: center;
     width: 34px;
+    cursor: pointer;
   }
   
   .square:focus {
     outline: none;
+  }
+
+  .square:hover {
+      background: rgba(225, 225, 225, 0.749);
+  }
+
+  .selected-step {
+      font-weight: bold;
   }
   
   .kbd-navigation .square:focus {
@@ -48,4 +57,11 @@ body {
   .game-info {
     margin-left: 20px;
   }
+
+  .move-desc {
+      margin-top: 0.5rem;
+  }
   
+  .move-button {
+      cursor: pointer;
+  }
