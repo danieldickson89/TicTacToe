@@ -41,6 +41,10 @@ body {
       background: rgba(225, 225, 225, 0.749);
   }
 
+  .winning-square, .winning-square:hover {
+      background: rgb(6, 255, 247);
+  }
+
   .selected-step {
       font-weight: bold;
   }
@@ -63,5 +67,9 @@ body {
   }
   
   .move-button {
+      cursor: pointer;
+  }
+
+  .toggle-button {
       cursor: pointer;
   }
