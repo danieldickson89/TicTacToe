@@ -45,6 +45,10 @@ body {
       background: rgb(6, 255, 247);
   }
 
+  .tie-game, .tie-game:hover {
+      background: rgb(249, 20, 20);
+  }
+
   .selected-step {
       font-weight: bold;
   }
