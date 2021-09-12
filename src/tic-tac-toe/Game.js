@@ -1,7 +1,7 @@
 import React from 'react';
 import Board from './Board';
 import './Game.css';
-import Button from 'react-bootstrap/Button';
+import {Container, Row, Col, Button} from 'react-bootstrap';
 
 export default class Game extends React.Component {
     constructor(props) {
@@ -67,7 +67,7 @@ export default class Game extends React.Component {
             return (
                 <div key={move} className="move-desc">
                     <Button 
-                      variant='light'
+                      variant='dark'
                       className={(move === this.state.stepNumber ? 'selected-step' : '')} 
                       onClick={() => this.jumpTo(move)}
                     >
@@ -81,7 +81,7 @@ export default class Game extends React.Component {
         let playerOneTurn = false;
         let playerTwoTurn = false;
         if (winner) {
-            status = 'Winner: ' + winner.winner;
+            status = winner.winner + ' Wins!';
             playerOneTurn = false;
             playerTwoTurn = false;
         } else if (this.state.stepNumber < 9) {
@@ -95,23 +95,28 @@ export default class Game extends React.Component {
         }
 
         return (
-        <div className="game">
-            <div>
-                <div className={"status " + (playerOneTurn ? 'player-1 ' : '') + (playerTwoTurn ? 'player-2 ' : '')}>{status}</div>
-                <div className="game-board">
-                    <Board 
-                        squares={current.squares} 
-                        onClick={(i) => this.handleClick(i)}
-                        winner={winner && winner.winningSquares} 
-                        tieGame={tieGame}
-                    />
-                </div>
-            </div>
-            <div className="game-info">
-                <div className="toggle-button"><Button variant="light" onClick={() => this.sortHandleClick()}>Toggle Sort Order</Button></div>
-                <div>{ascending ? moves : moves.reverse()}</div>
-            </div>
-        </div>
+        <Container fluid>
+            <Row>
+                <Col sm={3}></Col>
+                <Col sm={6}>
+                    <Row className={"justify-content-center status " + (playerOneTurn ? 'player-1 ' : '') + (playerTwoTurn ? 'player-2 ' : '')}>
+                        {status}
+                    </Row>
+                    <div className="game-board">
+                        <Board 
+                            squares={current.squares} 
+                            onClick={(i) => this.handleClick(i)}
+                            winner={winner && winner.winningSquares} 
+                            tieGame={tieGame}
+                        />
+                    </div>
+                </Col>
+                <Col sm={3}>
+                    <div className="toggle-button"><Button variant="dark" onClick={() => this.sortHandleClick()}>Toggle Sort Order</Button></div>
+                    <div>{ascending ? moves : moves.reverse()}</div>
+                </Col>
+            </Row>
+        </Container>
         );
     }
 }
@@ -131,7 +136,7 @@ function calculateWinner(squares) {
         const [a, b, c] = lines[i];
         if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
             return  {
-                winner: squares[a],
+                winner: squares[a] === 'X' ? 'Player 1' : 'Player 2',
                 winningSquares: lines[i]
             };
         }

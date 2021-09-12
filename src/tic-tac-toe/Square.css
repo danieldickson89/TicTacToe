@@ -1,29 +1,25 @@
 .square {
     background: #fff;
-    border: 3px solid black;
-    float: left;
-    font-size: 48px;
-    font-weight: bold;
-    line-height: 8rem;
+    border-top: 3px solid black;
+    border-right: 3px solid black;
+    font-size: 64px;
+    font-weight: bold;;
     height: 8rem;
-    margin-right: -1px;
-    margin-top: -1px;
-    padding: 0;
-    text-align: center;
-    width: 8rem;
+    line-height: 8rem;
+    min-width: 8rem;
     cursor: pointer;
 }
-  
-.square:focus {
-    outline: none;
+
+.left-square {
+    border-left: 3px solid black;
 }
 
+.bottom-square {
+    border-bottom: 3px solid black;
+}
+  
 .square:hover {
     background: rgba(225, 225, 225, 0.749);
-}
-
-.kbd-navigation .square:focus {
-    background: #ddd;
 }
 
 .winning-square, .winning-square:hover {
