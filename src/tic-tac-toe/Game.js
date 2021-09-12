@@ -68,7 +68,7 @@ export default class Game extends React.Component {
                 <div key={move} className="move-desc">
                     <Button 
                       variant='light'
-                      className={"move-button " + (move === this.state.stepNumber ? 'selected-step' : '')} 
+                      className={(move === this.state.stepNumber ? 'selected-step' : '')} 
                       onClick={() => this.jumpTo(move)}
                     >
                         {desc}
@@ -85,7 +85,7 @@ export default class Game extends React.Component {
             playerOneTurn = false;
             playerTwoTurn = false;
         } else if (this.state.stepNumber < 9) {
-            status = "It's Player " + (this.state.xIsNext ? '1' : '2') + "'s turn!";
+            status = "Player " + (this.state.xIsNext ? '1' : '2') +":";
             playerOneTurn = this.state.xIsNext ? true : false;
             playerTwoTurn = this.state.xIsNext ? false : true;
         } else {
@@ -96,18 +96,20 @@ export default class Game extends React.Component {
 
         return (
         <div className="game">
-            <div className="game-board">
-                <Board 
-                  squares={current.squares} 
-                  onClick={(i) => this.handleClick(i)}
-                  winner={winner && winner.winningSquares} 
-                  tieGame={tieGame}
-                />
+            <div>
+                <div className={"status " + (playerOneTurn ? 'player-1 ' : '') + (playerTwoTurn ? 'player-2 ' : '')}>{status}</div>
+                <div className="game-board">
+                    <Board 
+                        squares={current.squares} 
+                        onClick={(i) => this.handleClick(i)}
+                        winner={winner && winner.winningSquares} 
+                        tieGame={tieGame}
+                    />
+                </div>
             </div>
             <div className="game-info">
-                <div className={"status " + (playerOneTurn ? 'player-1 ' : '') + (playerTwoTurn ? 'player-2 ' : '')}>{status}</div>
-                <ol>{ascending ? moves : moves.reverse()}</ol>
-                <ul><Button variant="light" className="toggle-button" onClick={() => this.sortHandleClick()}>Toggle Sort Order</Button></ul>
+                <div className="toggle-button"><Button variant="light" onClick={() => this.sortHandleClick()}>Toggle Sort Order</Button></div>
+                <div>{ascending ? moves : moves.reverse()}</div>
             </div>
         </div>
         );
