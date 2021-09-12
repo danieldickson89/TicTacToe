@@ -9,7 +9,7 @@ ol, ul {
 }
 
 .status {
-    margin-bottom: 10px;
+    font-size: 24px;
 }
 
 .game-info {
@@ -20,10 +20,14 @@ ol, ul {
     margin-top: 0.5rem;
 }
 
-.move-button {
-    cursor: pointer;
+.move-button, .toggle-button {
+    width: 10rem;
 }
 
-.toggle-button {
-    cursor: pointer;
+.player-1 {
+    color: rgb(73, 73, 255);
+}
+
+.player-2 {
+    color: rgb(146, 52, 228);
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import Board from './Board';
 import './Game.css';
+import Button from 'react-bootstrap/Button';
 
 export default class Game extends React.Component {
     constructor(props) {
@@ -13,6 +14,10 @@ export default class Game extends React.Component {
             stepNumber: 0,
             xIsNext: true,
         };
+    }
+
+    componentDidMount() {
+        this.sortHandleClick();
     }
 
     handleClick(i) {
@@ -60,24 +65,33 @@ export default class Game extends React.Component {
               `Game start`;
 
             return (
-                <li key={move} className="move-desc">
-                    <button 
+                <div key={move} className="move-desc">
+                    <Button 
+                      variant='light'
                       className={"move-button " + (move === this.state.stepNumber ? 'selected-step' : '')} 
                       onClick={() => this.jumpTo(move)}
                     >
                         {desc}
-                    </button>
-                </li>
+                    </Button>
+                </div>
             );
         });
 
         let status;
+        let playerOneTurn = false;
+        let playerTwoTurn = false;
         if (winner) {
             status = 'Winner: ' + winner.winner;
+            playerOneTurn = false;
+            playerTwoTurn = false;
         } else if (this.state.stepNumber < 9) {
-            status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
+            status = "It's Player " + (this.state.xIsNext ? '1' : '2') + "'s turn!";
+            playerOneTurn = this.state.xIsNext ? true : false;
+            playerTwoTurn = this.state.xIsNext ? false : true;
         } else {
             status = 'It\'s a draw!';
+            playerOneTurn = false;
+            playerTwoTurn = false;
         }
 
         return (
@@ -91,9 +105,9 @@ export default class Game extends React.Component {
                 />
             </div>
             <div className="game-info">
-                <div>{status}</div>
+                <div className={"status " + (playerOneTurn ? 'player-1 ' : '') + (playerTwoTurn ? 'player-2 ' : '')}>{status}</div>
                 <ol>{ascending ? moves : moves.reverse()}</ol>
-                <button className="toggle-button" onClick={() => this.sortHandleClick()}>Toggle Sort Order</button>
+                <ul><Button variant="light" className="toggle-button" onClick={() => this.sortHandleClick()}>Toggle Sort Order</Button></ul>
             </div>
         </div>
         );
