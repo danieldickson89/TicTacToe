@@ -1,7 +1,7 @@
 import React from 'react';
 import Board from './Board';
 import './Game.css';
-import {Container, Row, Col, Button} from 'react-bootstrap';
+import { Container, Row, Col, Button } from 'react-bootstrap';
 
 export default class Game extends React.Component {
     constructor(props) {
@@ -9,7 +9,7 @@ export default class Game extends React.Component {
         this.state = {
             history: [{
                 squares: Array(9).fill(null),
-                location: [0,0]
+                location: [0, 0]
             }],
             stepNumber: 0,
             xIsNext: true,
@@ -31,7 +31,7 @@ export default class Game extends React.Component {
         this.setState({
             history: history.concat([{
                 squares: squares,
-                location:[Math.floor((i % 3) + 1), Math.floor((i / 3) + 1)]
+                location: [Math.floor((i % 3) + 1), Math.floor((i / 3) + 1)]
             }]),
             stepNumber: history.length,
             xIsNext: !this.state.xIsNext,
@@ -45,7 +45,7 @@ export default class Game extends React.Component {
         });
     }
 
-    sortHandleClick(){
+    sortHandleClick() {
         this.setState({
             ascending: !this.state.ascending
         });
@@ -61,15 +61,15 @@ export default class Game extends React.Component {
         const moves = history.map((step, move) => {
             const location = step.location;
             const desc = move ?
-              `Move # ${move} - (${location[0]},${location[1]})`:
-              `Game start`;
+                `Move # ${move} - (${location[0]},${location[1]})` :
+                `Game start`;
 
             return (
                 <div key={move} className="move-desc">
-                    <Button 
-                      variant='dark'
-                      className={(move === this.state.stepNumber ? 'selected-step' : '')} 
-                      onClick={() => this.jumpTo(move)}
+                    <Button
+                        variant='dark'
+                        className={(move === this.state.stepNumber ? 'selected-step' : '')}
+                        onClick={() => this.jumpTo(move)}
                     >
                         {desc}
                     </Button>
@@ -85,7 +85,7 @@ export default class Game extends React.Component {
             playerOneTurn = false;
             playerTwoTurn = false;
         } else if (this.state.stepNumber < 9) {
-            status = "Player " + (this.state.xIsNext ? '1' : '2') +":";
+            status = "Player " + (this.state.xIsNext ? '1' : '2') + ":";
             playerOneTurn = this.state.xIsNext ? true : false;
             playerTwoTurn = this.state.xIsNext ? false : true;
         } else {
@@ -95,47 +95,47 @@ export default class Game extends React.Component {
         }
 
         return (
-        <Container fluid>
-            <Row>
-                <Col sm={3}></Col>
-                <Col sm={6}>
-                    <Row className={"justify-content-center status " + (playerOneTurn ? 'player-1 ' : '') + (playerTwoTurn ? 'player-2 ' : '')}>
-                        {status}
-                    </Row>
-                    <div className="game-board">
-                        <Board 
-                            squares={current.squares} 
-                            onClick={(i) => this.handleClick(i)}
-                            winner={winner && winner.winningSquares} 
-                            tieGame={tieGame}
-                        />
-                    </div>
-                </Col>
-                <Col sm={3}>
-                    <div className="toggle-button"><Button variant="dark" onClick={() => this.sortHandleClick()}>Toggle Sort Order</Button></div>
-                    <div>{ascending ? moves : moves.reverse()}</div>
-                </Col>
-            </Row>
-        </Container>
+            <Container fluid>
+                <Row>
+                    <Col sm={3}></Col>
+                    <Col sm={6}>
+                        <Row className={"justify-content-center status " + (playerOneTurn ? 'player-1 ' : '') + (playerTwoTurn ? 'player-2 ' : '')}>
+                            {status}
+                        </Row>
+                        <div className="game-board">
+                            <Board
+                                squares={current.squares}
+                                onClick={(i) => this.handleClick(i)}
+                                winner={winner && winner.winningSquares}
+                                tieGame={tieGame}
+                            />
+                        </div>
+                    </Col>
+                    <Col sm={3}>
+                        <div className="toggle-button"><Button variant="dark" onClick={() => this.sortHandleClick()}>Toggle Sort Order</Button></div>
+                        <div>{ascending ? moves : moves.reverse()}</div>
+                    </Col>
+                </Row>
+            </Container>
         );
     }
 }
 
 function calculateWinner(squares) {
     const lines = [
-        [0,1,2],
-        [3,4,5],
-        [6,7,8],
-        [0,3,6],
-        [1,4,7],
-        [2,5,8],
-        [0,4,8],
-        [2,4,6]
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        [0, 4, 8],
+        [2, 4, 6]
     ];
     for (let i = 0; i < lines.length; i++) {
         const [a, b, c] = lines[i];
         if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-            return  {
+            return {
                 winner: squares[a] === 'X' ? 'Player 1' : 'Player 2',
                 winningSquares: lines[i]
             };

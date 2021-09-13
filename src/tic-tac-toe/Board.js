@@ -1,19 +1,19 @@
 import React from 'react';
 import Square from './Square';
 import './Board.css';
-import {Row, Col} from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 
 export default class Board extends React.Component {
     renderSquare(i) {
         let winningSquare = this.props.winner && this.props.winner.includes(i) ? true : false;
         return (
-          <Square 
-            squareNum={i}
-            value={this.props.squares[i]}
-            onClick={() => this.props.onClick(i)} 
-            winningSquare={winningSquare} 
-            tieGame={this.props.tieGame}
-          />
+            <Square
+                squareNum={i}
+                value={this.props.squares[i]}
+                onClick={() => this.props.onClick(i)}
+                winningSquare={winningSquare}
+                tieGame={this.props.tieGame}
+            />
         );
     }
 
