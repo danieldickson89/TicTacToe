@@ -22,9 +22,9 @@ export default class Board extends React.Component {
         for (let row = 0; row < 3; row++) {
             let boardRow = [];
             for (let col = 0; col < 3; col++) {
-                boardRow.push(<Col xs={4} key={(row * 3) + col}>{this.renderSquare((row * 3) + col)}</Col>);
+                boardRow.push(<Col xs="auto" key={(row * 3) + col}>{this.renderSquare((row * 3) + col)}</Col>);
             }
-            boardSquares.push(<Row key={row}>{boardRow}</Row>);
+            boardSquares.push(<Row className="justify-content-center" key={row}>{boardRow}</Row>);
         }
 
         return (
