@@ -97,8 +97,8 @@ export default class Game extends React.Component {
         return (
             <Container fluid>
                 <Row>
-                    <Col sm={3}></Col>
-                    <Col sm={6}>
+                    <Col md={3}></Col>
+                    <Col sm={12} md={6}>
                         <Row className={"justify-content-center status " + (playerOneTurn ? 'player-1 ' : '') + (playerTwoTurn ? 'player-2 ' : '')}>
                             {status}
                         </Row>
@@ -111,7 +111,7 @@ export default class Game extends React.Component {
                             />
                         </div>
                     </Col>
-                    <Col sm={3}>
+                    <Col md={3}>
                         <div className="toggle-button"><Button variant="dark" onClick={() => this.sortHandleClick()}>Toggle Sort Order</Button></div>
                         <div>{ascending ? moves : moves.reverse()}</div>
                     </Col>
